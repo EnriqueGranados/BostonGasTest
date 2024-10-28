@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.background-image {
+    position: relative;
+    height: 100vh; /* Altura de la ventana del navegador */
+    background-image: url('../public/images/re.png'); /* Reemplaza con la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+}
+
+header{
+    height: 80px;
+}
+
+.navbar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #D9D9D9;
+}
+
+.logo-nav{
+    margin-top: 15px;
+}
+
+.btn{  
+    position: absolute;
+    right: 30px;
+}
+
+.btn-login {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #2A4B89; 
+    color: white; 
+    text-align: center;
+    text-decoration: none; 
+    border-radius: 5px; 
+    font-size: 16px;
+    transition: background-color 0.3s ease; 
+}
+
+.btn-login:hover {
+    background-color: #476192; 
+}
+
+
+
+
+/* El contenedor principal ocupará el 100% de la altura */
+.container {
+    display: flex;
+    height: calc(100vh - 120px); /* 100% de la altura del viewport */
+}
+
+/* Estilos para la columna de la imagen */
+.left-column {
+    flex:55%; /* Toma el 50% del ancho */
+    background-image: url('/images/re.png'); /* Cambia la ruta a la de tu imagen */
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url('/images/gas.png'); /* Degradado a la derecha y la imagen de fondo */
+    background-size:cover; /* La imagen cubrirá todo el espacio */
+    background-position:initial; /* Centra la imagen */
+    height: calc(100vh - 120px); /* Altura de la ventana del navegador */
+    overflow: hidden;   
+}
+
+/* Estilos para la columna de texto */
+.right-column {
+    flex: 45%; /* Toma el otro 50% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff; /* Fondo claro */
+    height: calc(100vh - 120px); /* Altura de la ventana del navegador */
+    overflow: hidden;   
+}
+
+
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+p {
+    font-size: 17px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.ubimg{
+   position:absolute;
+   margin-left: -5px;
+   margin-top: -5px;
+}
+
+.telimg{
+    position:absolute;
+    margin-left: -3px;
+}
+
+.mailimg{
+    position:absolute;
+    margin-left: -3px;
+}
+
+.parrafo{
+    margin-left: 30px;
+}
+
+.ubicacion{
+    margin-top: 25px;
+}
+
+.telefono{
+    margin-top: 25px;
+}
+
+.mail{
+    margin-top: 25px;
+}
+
+.informacion{
+    margin-bottom: 50px;
+}
