@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('code')->nullable()->after('role'); // Agrega el campo 'code' después de 'role'
+            if (!Schema::hasColumn('users', 'code')) {
+                $table->string('code')->nullable()->after('role');
+            }
         });
     }
 

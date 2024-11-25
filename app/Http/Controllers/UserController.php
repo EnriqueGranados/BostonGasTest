@@ -20,11 +20,11 @@ class UserController extends Controller
         // Validación de los campos
         $request->validate([
             'name' => 'required|string|max:255',
-            'last_name' => 'nullable|string|max:255', // Validación para last_name
+            'last_name' => 'required|string|max:255', // Validación para last_name
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'address' => 'nullable|string|max:255', // Validación para address
-            'phone_number' => 'nullable|string|max:20', // Validación para phone_number
+            'phone_number' => 'required|string|max:20', // Validación para phone_number
             'birth_date' => 'nullable|date', // Validación para birth_date
             'gender' => 'nullable|string|max:10', // Validación para gender
         ]);

@@ -19,12 +19,22 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'Producto no encontrado.');
         }
 
+        // Validar la cantidad ingresada
+        $request->validate([
+            'quantity' => [
+                'required',
+                'integer',
+                'min:1', // Mínimo de 1
+                'max:' . $product->stock, // Máximo según el stock del producto
+            ],
+        ], [
+            'quantity.min' => 'La cantidad debe ser al menos 1.',
+            'quantity.max' => 'No hay suficiente stock disponible para este producto.',
+        ]);
+
         // Asegúrate de que la cantidad no supere el stock
         $quantity = $request->input('quantity');
-        if ($quantity > $product->stock) {
-            return redirect()->back()->with('error', 'No hay suficiente stock disponible.');
-        }
-
+        
         // Guarda el producto en la sesión del carrito
         $cart = Session::get('cart', []);
         $cart[$id] = [

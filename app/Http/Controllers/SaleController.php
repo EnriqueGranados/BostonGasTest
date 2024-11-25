@@ -16,7 +16,7 @@ class SaleController extends Controller
         $request->validate([
             'customer' => 'required|string|max:255',
             'payment' => 'required|string',
-            'dui' => 'nullable|string|max:255',
+            'dui' => 'required|string|max:255',
             'card_number' => 'nullable|string|max:255',
             'transfer_number' => 'nullable|string|max:255',
         ]);
@@ -48,6 +48,7 @@ class SaleController extends Controller
         $sale = Sale::create([
             'seller' => Auth::user()->name . ' ' . Auth::user()->last_name, // Concatenar nombre y apellido
             'customer' => $request->customer,
+            'dui' => $request->dui,
             'payment' => $request->payment,
             'details_sale' => $detailsSaleJson,
             'total' => $total, // Agregar el total

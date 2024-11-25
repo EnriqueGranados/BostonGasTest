@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            // Asegurarse de que la columna 'role' solo se agregue si no existe
             $table->string('role')->default('employee');
             $table->string('code')->nullable(); // El campo 'code' se agrega aquí
             $table->rememberToken();

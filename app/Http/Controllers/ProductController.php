@@ -4,20 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Category; // Asegúrate de importar el modelo Category
+use App\Models\Category; 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     // Función para mostrar la vista de edición de productos
-    public function editProduct()
+    public function editProduct(Request $request)
     {
-        // Obtiene todos los productos de la base de datos
-        $products = Product::all();
+        // Obtener el término de búsqueda desde el parámetro 'search'
+        $searchTerm = $request->input('search');
 
-        $categories = Category::all(); // Obtiene todas las categorías
-        // Retorna la vista 'editProduct' y pasa la lista de productos
-        return view('editProduct', compact('products', 'categories'));
+        // Consultar productos y filtrar si existe un término de búsqueda
+        $products = Product::query();
+
+        if ($searchTerm) {
+            $products->where('name', 'LIKE', "%{$searchTerm}%");
+        }
+
+        $categories = Category::all(); // Obtener todas las categorías
+
+        // Retorna la vista 'editProduct' y pasa los productos filtrados
+        return view('editProduct', [
+            'products' => $products->get(),
+            'categories' => $categories,
+        ]);
     }
 
     // Función para almacenar un nuevo producto
@@ -99,7 +111,7 @@ class ProductController extends Controller
             'price' => 'required|numeric', // El precio es obligatorio
             'stock' => 'required|integer', // El stock es obligatorio
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // La imagen es opcional, con validaciones
-            'category' => 'required|string|max:255', // La categoría es obligatoria
+            'category' => 'required|exists:categories,id', // La categoría es obligatoria
         ]);
 
         // Busca el producto por ID, o falla si no se encuentra
@@ -116,6 +128,9 @@ class ProductController extends Controller
         }
         // Buscar el nombre de la categoría seleccionada
         $category = DB::table('categories')->where('id', $request->category)->value('name');
+        if (!$category) {
+            return back()->withErrors(['category' => 'Categoría no válida.']);
+        }
         
         // Actualiza los campos del producto
         $product->name = $request->input('name');
@@ -130,6 +145,6 @@ class ProductController extends Controller
         session()->flash('success', 'Producto actualizado con éxito.');
         
         // Redirigir de vuelta a la vista de edición
-        return redirect()->route('editProduct', $id);
+        return redirect()->route('editProduct', ['id' => $product->id]);
     }
 }
